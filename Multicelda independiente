@@ -1,0 +1,28 @@
+from fpdf import FPDF
+from fpdf.enums import XPos,YPos
+
+pdf = FPDF('P','mm','A4')
+pdf.add_page()
+pdf.set_auto_page_break(True,10)
+pdf.set_font('Times','',16)
+
+# FORMA 1 CON MULTICELL PARA CREAR LISTAS DEBAJO DE CADA GRID
+
+pdf.cell(60,10,'hola patito',border=True,align='C')
+pdf.cell(60,10,'HOLA MUNDO',border=True,align='C')
+pdf.multi_cell(0,10,'HOLA MAMA',border=True,align='C',new_x=XPos.LMARGIN,new_y=YPos.NEXT)
+
+for i in range(1,6):
+    pdf.multi_cell(60,10,f'Este es el numero {i} :D',border=True,new_x=XPos.LEFT,new_y=YPos.NEXT)
+    
+pdf.set_xy(70,20)#ancho de la celda + alto =x, alto total=y 
+
+for i in range(1,6):
+    pdf.multi_cell(60,10,f'Este es el numero {i} :D',border=True,new_x=XPos.LEFT,new_y=YPos.NEXT)
+
+pdf.set_xy(130,20)#el utlimo alto=70+0 ó 60+70
+
+for i in range(1,6):
+    pdf.multi_cell(0,10,f'Este es el numero {i} :D',border=True,new_x=XPos.LEFT,new_y=YPos.NEXT)
+
+pdf.output('prueba_3.pdf')
